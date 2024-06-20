@@ -3,22 +3,22 @@ import React, {useEffect, useState} from "react";
 
 interface Props{
     name: string;
+    alpha3Code: string;
 }
 
 interface CountryClick{
-    Click: (item: string) => void;
+    Click: (name: string, alpha3Code: string) => void;
 }
 
 const CountyAside: React.FC<CountryClick> = ({Click}) => {
 
-    const [countyName , setCountryName] = useState<string[]>([]);
+    const [countyName , setCountryName] = useState<Props[]>([]);
     const url = 'https://restcountries.com/v2/all?fields=alpha3Code,name'
     const fetchData = async () => {
         const response = await fetch(url);
         if (response.ok) {
-            const item = await response.json() as Props[];
-            const names = item.map(item => item.name);
-            setCountryName(names);
+            const items = await response.json() as Props[];
+            setCountryName(items);
         }
     }
 
@@ -46,8 +46,8 @@ const CountyAside: React.FC<CountryClick> = ({Click}) => {
                 </Typography>
                 <List>
                     {countyName.map((item, index) => (
-                        <ListItem key={index} button onClick={() => Click(item)}>
-                            <ListItemText primary={item}/>
+                        <ListItem key={index} button onClick={() => Click(item.name , item.alpha3Code)}>
+                            <ListItemText primary={item.name}/>
                         </ListItem>
                     ))}
                 </List>
