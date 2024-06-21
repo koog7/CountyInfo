@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Grid, Typography, Box, List, ListItem } from '@mui/material';
 
 interface Props{
     name: string;
@@ -53,22 +54,33 @@ const CountryInfo: React.FC<Props> = ({name , alpha3Code}) => {
     }, [countryData]);
 
     return (
-        <div>
-            <p>{name}</p>
-            <p>{alpha3Code}</p>
-            {countryData && (
-                <>
-                    <p>Capital: {countryData.capital}</p>
-                    <p>Population: {countryData.population}</p>
-                    <img width={'300px'} src={countryData.flags.svg} alt={`${countryData.name} flag`}/>
-                    <ul>
+        <Box sx={{ padding: 2 }}>
+            <Grid container spacing={2} marginLeft={'125px'}>
+                <Grid item xs={12} md={5}>
+                    <Typography variant="h2" color={'#0fff50'} width={'350px'} marginBottom={'50px'}>{name}</Typography>
+                    <Typography variant="subtitle1"><span style={{color:'#0fff50'}}>Code:</span> {alpha3Code}</Typography>
+                    {countryData && (
+                        <>
+                            <Typography variant="h6"><span style={{color:'#0fff50'}}>Capital:</span> {countryData.capital}</Typography>
+                            <Typography variant="h6"><span style={{color:'#0fff50'}}>Population:</span>  {countryData.population}</Typography>
+                        </>
+                    )}
+                </Grid>
+                <Grid item xs={12} md={6} container justifyContent="flex-end" alignItems="flex-start">
+                    {countryData && (
+                        <img width={'400px'} src={countryData.flags.svg} alt={`${countryData.name} flag`} />
+                    )}
+                </Grid>
+                <Grid item xs={12} md={6} sx={{ alignSelf: 'flex-end' }}>
+                    <Typography variant="h4"><span style={{color:'#0fff50'}}>Border Countries:</span></Typography>
+                    <List>
                         {borderCountries.map((country, index) => (
-                            <li key={index}>{country}</li>
+                            <ListItem key={index} sx={{borderBottom: '1px solid #0fff50', width:'240px'}}>{country}</ListItem>
                         ))}
-                    </ul>Добавлена функция отображения названий граничащих стран
-                </>
-            )}
-        </div>
+                    </List>
+                </Grid>
+            </Grid>
+        </Box>
     );
 };
 
