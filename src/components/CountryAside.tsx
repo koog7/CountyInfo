@@ -10,7 +10,7 @@ interface CountryClick{
     Click: (name: string, alpha3Code: string) => void;
 }
 
-const CountyAside: React.FC<CountryClick> = ({Click}) => {
+const CountryAside: React.FC<CountryClick> = ({Click}) => {
 
     const [countyName , setCountryName] = useState<Props[]>([]);
     const url = 'https://restcountries.com/v2/all?fields=alpha3Code,name'
@@ -56,4 +56,4 @@ const CountyAside: React.FC<CountryClick> = ({Click}) => {
     );
 };
 
-export default CountyAside;
+export default CountryAside;
